@@ -1,3 +1,5 @@
+using Backend.Domain.Entities;
+
 namespace Backend.Infrastructure.Database;
 
 public class BackendContext : DbContext

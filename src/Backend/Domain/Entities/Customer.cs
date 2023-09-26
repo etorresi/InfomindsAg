@@ -1,4 +1,4 @@
-namespace Backend.Infrastructure.Database;
+namespace Backend.Domain.Entities;
 
 public class Customer
 {
