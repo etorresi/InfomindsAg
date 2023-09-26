@@ -1,3 +1,4 @@
+import ExportButton from '../UI/Buttons/ExportButton'; // Assicurati di importare correttamente il tuo componente
 import xmlbuilder from 'xmlbuilder';
 
 function ExportCustomersToXML({ data }) {
@@ -26,7 +27,8 @@ function ExportCustomersToXML({ data }) {
   };
 
   return (
-    <button onClick={handleExportClick}>Esporta in XML</button>
+    // <button onClick={handleExportClick}>Esporta in XML</button>
+    <ExportButton onClick={handleExportClick}>Esporta in XML</ExportButton>
   );
 }
 

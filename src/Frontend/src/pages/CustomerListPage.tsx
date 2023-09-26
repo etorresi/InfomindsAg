@@ -1,4 +1,5 @@
 import {
+  Grid,
     Paper,
     Table,
     TableBody,
@@ -12,6 +13,7 @@ import {
   } from "@mui/material";
 import { useEffect, useState } from "react";
 import ExportXML from "../Components/Customers/ExportCustomersToXML";
+import FilterInput from "../Components/UI/Input/FilterInput";
 
 interface CustomerListQuery {
     id: number;
@@ -55,7 +57,7 @@ export default function CustomerListPage() {
               )}&`;
             }
           }
-          return apiUrl.slice(0, -1); // Rimuovi l'ultimo "&" dalla stringa
+          return apiUrl.slice(0, -1); // Rimuove l'ultimo "&" dalla stringa
         };
     
         // Invia una richiesta al backend quando i filtri cambiano
@@ -75,21 +77,31 @@ export default function CustomerListPage() {
                 Customers   
             </Typography>
 
-            <TableContainer component={Paper}>
-              <input
-                  type="text"
-                  placeholder="Filtra per nome"
-                  value={filters.name}
-                  onChange={(e) => setFilters({ ...filters, name: e.target.value })}
-              />
-              <input
-                  type="text"
-                  placeholder="Filtra per email"
-                  value={filters.email}
-                  onChange={(e) => setFilters({ ...filters, email: e.target.value })}
-              />
-              <br /><br />
-              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableContainer sx={{ minWidth: 600, marginBottom: '40px' }} component={Paper}>
+              <Grid container alignItems="center" mb={2}>
+                <Grid item xs={6}> {/* I campi di input occupano metà della larghezza */}
+                  <FilterInput
+                    type="text" 
+                    placeholder="Filtra per nome"
+                    value={filters.name}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setFilters({ ...filters, name: e.target.value })
+                    }
+                  />
+                  <FilterInput
+                    type="text"
+                    placeholder="Filtra per email"
+                    value={filters.email}
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                      setFilters({ ...filters, email: e.target.value })
+                    }
+                  />
+                </Grid>
+                <Grid item xs={6} sx={{ textAlign: "right" }}>
+                  <ExportXML data={list} />
+                </Grid>
+              </Grid>
+              <Table sx={{ minWidth: 500 }} aria-label="simple table">
                   <TableHead>
                       <TableRow>
                           <StyledTableHeadCell>Name</StyledTableHeadCell>
@@ -119,9 +131,6 @@ export default function CustomerListPage() {
                   </TableBody>
               </Table>
             </TableContainer>
-            <br /><br />
-            <ExportXML data={list} />
-            <br /><br />
         </>
     );
 }
