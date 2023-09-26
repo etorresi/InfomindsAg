@@ -8,10 +8,14 @@ function ExportCustomersToXML({ data }) {
     const xml = xmlbuilder.create('data');
     
     data.forEach((row, index) => {
-      const item = xml.ele('item', { id: index + 1 });
+      const item = xml.ele('item', { id: row.id });
       item.ele('name', row.name);
-      item.ele('age', row.age);
-
+      item.ele('address', row.address);
+      item.ele('email', row.email);
+      item.ele('phone', row.phone);
+      item.ele('iban', row.iban);
+      item.ele('code', row.customerCategory.code);
+      item.ele('description', row.customerCategory.description);
     });
     
     const xmlString = xml.end({ pretty: true });
