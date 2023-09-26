@@ -10,7 +10,8 @@ import {
     styled,
     tableCellClasses,
   } from "@mui/material";
-  import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import ExportXML from "../Components/Customers/ExportCustomersToXML";
 
 interface CustomerListQuery {
     id: number;
@@ -75,49 +76,52 @@ export default function CustomerListPage() {
             </Typography>
 
             <TableContainer component={Paper}>
-                <input
-                    type="text"
-                    placeholder="Filtra per nome"
-                    value={filters.name}
-                    onChange={(e) => setFilters({ ...filters, name: e.target.value })}
-                />
-                <input
-                    type="text"
-                    placeholder="Filtra per email"
-                    value={filters.name}
-                    onChange={(e) => setFilters({ ...filters, email: e.target.value })}
-                />
-                
-                <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableHeadCell>Name</StyledTableHeadCell>
-                            <StyledTableHeadCell>Address</StyledTableHeadCell>
-                            <StyledTableHeadCell>Email</StyledTableHeadCell>
-                            <StyledTableHeadCell>Phone</StyledTableHeadCell>
-                            <StyledTableHeadCell>Iban</StyledTableHeadCell>
-                            <StyledTableHeadCell>Code</StyledTableHeadCell>
-                            <StyledTableHeadCell>Description</StyledTableHeadCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {list.map((row) => (
-                            <TableRow
-                            key={row.id}
-                            sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                            >
-                                <TableCell>{row.name}</TableCell>
-                                <TableCell>{row.address}</TableCell>
-                                <TableCell>{row.email}</TableCell>
-                                <TableCell>{row.phone}</TableCell>
-                                <TableCell>{row.iban}</TableCell>
-                                <TableCell>{row.customerCategory?.code}</TableCell>
-                                <TableCell>{row.customerCategory?.description}</TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+              <input
+                  type="text"
+                  placeholder="Filtra per nome"
+                  value={filters.name}
+                  onChange={(e) => setFilters({ ...filters, name: e.target.value })}
+              />
+              <input
+                  type="text"
+                  placeholder="Filtra per email"
+                  value={filters.email}
+                  onChange={(e) => setFilters({ ...filters, email: e.target.value })}
+              />
+              <br /><br />
+              <Table sx={{ minWidth: 650 }} aria-label="simple table">
+                  <TableHead>
+                      <TableRow>
+                          <StyledTableHeadCell>Name</StyledTableHeadCell>
+                          <StyledTableHeadCell>Address</StyledTableHeadCell>
+                          <StyledTableHeadCell>Email</StyledTableHeadCell>
+                          <StyledTableHeadCell>Phone</StyledTableHeadCell>
+                          <StyledTableHeadCell>Iban</StyledTableHeadCell>
+                          <StyledTableHeadCell>Code</StyledTableHeadCell>
+                          <StyledTableHeadCell>Description</StyledTableHeadCell>
+                      </TableRow>
+                  </TableHead>
+                  <TableBody>
+                      {list.map((row) => (
+                          <TableRow
+                          key={row.id}
+                          sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                          >
+                              <TableCell>{row.name}</TableCell>
+                              <TableCell>{row.address}</TableCell>
+                              <TableCell>{row.email}</TableCell>
+                              <TableCell>{row.phone}</TableCell>
+                              <TableCell>{row.iban}</TableCell>
+                              <TableCell>{row.customerCategory?.code}</TableCell>
+                              <TableCell>{row.customerCategory?.description}</TableCell>
+                          </TableRow>
+                      ))}
+                  </TableBody>
+              </Table>
             </TableContainer>
+            <br /><br />
+            <ExportXML data={list} />
+            <br /><br />
         </>
     );
 }
